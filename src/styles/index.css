@@ -9,3 +9,10 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+#root{
+    background-image: url("https://cdn.suwalls.com/wallpapers/movies/lord-of-the-rings-41474-1920x1080.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    background-position: center;
+}
