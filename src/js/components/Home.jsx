@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const Home = () => {
@@ -23,15 +23,57 @@ const Home = () => {
 			setTimeout(() => setShowAlert(false), 2000);
 			return;
 		}
-		setPersonajes([...personajes, newPersonaje])
+		crearPersonaje()
+		
+	}
+
+	const getPersonajes = async () => {
+		const response = await fetch("https://verbose-computing-machine-g747pp45rjx3vvp4-8000.app.github.dev/usuarios/monkey/personajes")
+		console.log(response);
+		if (!response.ok) {
+			console.log("debo crear el usuario");
+			crearUsuario()
+			return
+		}
+		const data = await response.json()
+		console.log(data);
+		setPersonajes(data)
+
+	}
+
+	const crearUsuario = async () => {
+		const response = await fetch("https://verbose-computing-machine-g747pp45rjx3vvp4-8000.app.github.dev/usuarios/monkey", {
+			method: "POST"
+		})
+		const data = await response.json()
+		console.log(data);
+
+	}
+
+	const crearPersonaje = async () => {
+		const response = await fetch("https://verbose-computing-machine-g747pp45rjx3vvp4-8000.app.github.dev/usuarios/monkey/personajes", {
+			method: "POST",
+			body: JSON.stringify(newPersonaje),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+		const data = await response.json()
+		console.log(data);
+		getPersonajes()
 		setNewPersonaje({
 			nombre: "",
 			frase: "",
 			imagen: ""
 		})
 
-
 	}
+
+	useEffect(() => {
+		getPersonajes()
+
+	}, [])
+
 	return (
 		<div className="container pt-4">
 			<h2 className="text-center text-light"><img style={{ height: "40px" }} src="https://upload.wikimedia.org/wikipedia/commons/d/d4/One_Ring_Blender_Render.png" alt="" /> Crea tu personaje de El Señor de los Anillos</h2>
