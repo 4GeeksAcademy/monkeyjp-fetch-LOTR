@@ -1,3 +1,52 @@
+// fetch es una función de JavaScript que nos permite hacer peticiones HTTP (pedir información) a un servidor.
+
+// En palabras simples:
+
+// fetch sirve para obtener datos de una API o enviar datos a un servidor.
+
+// ¿Qué es una API?
+// Una API (Application Programming Interface) es una forma de comunicación entre programas.
+// 👉 En este caso:
+// El frontend (JavaScript)
+// se comunica con un servidor
+// usando HTTP
+// Ejemplo sencillo:
+// “Yo pido datos” → “El servidor responde con datos”
+
+
+// ¿Qué es una función asíncrona?
+
+// Antes de usar fetch, hay que entender asincronía.
+// ⏱️ Código síncrono
+// El código se ejecuta línea por línea, esperando a que cada instrucción termine.
+
+// ⚡ Código asíncrono
+// Algunas tareas (como pedir datos a un servidor) tardan tiempo.
+// JavaScript no se queda bloqueado esperando, sino que continúa y recibe el resultado después.
+
+// 👉 fetch es asíncrono, porque pedir datos a un servidor lleva tiempo.
+
+
+// GET     → Leer algo (traer datos)
+// POST    → Crear algo nuevo
+// PUT     → Actualizar algo existente
+// DELETE  → Borrar algo
+
+
+// Petición HTTP:
+
+// 1. Método:         GET / POST / PUT / DELETE
+// 2. URL:            https://api.com/todos/1
+// 3. Headers:        Content-Type: application/json
+// 4. Body:           {"title": "Nuevo todo"}   <-- solo en POST y PUT
+
+// “Cada vez que hacemos una petición con fetch, estamos enviando algo con estas 4 partes:
+// Método: le dice al servidor qué tipo de operación hacer.
+// URL: le dice a dónde va la petición (a qué recurso).
+// Headers: sirven para decir en qué formato va la información (normalmente JSON).
+// Body: el contenido que enviás (sólo en POST o PUT).”
+
+
 import { useEffect, useState } from "react";
 
 
@@ -27,8 +76,11 @@ const Home = () => {
 		
 	}
 
+	const API_URL = "https://super-dollop-4wjwrrjg5qj25qjw-8000.app.github.dev"
+	const USER = "Pepe"
+
 	const getPersonajes = async () => {
-		const response = await fetch("https://verbose-computing-machine-g747pp45rjx3vvp4-8000.app.github.dev/usuarios/monkey/personajes")
+		const response = await fetch(`${API_URL}/usuarios/${USER}/personajes`)
 		console.log(response);
 		if (!response.ok) {
 			console.log("debo crear el usuario");
@@ -42,7 +94,7 @@ const Home = () => {
 	}
 
 	const crearUsuario = async () => {
-		const response = await fetch("https://verbose-computing-machine-g747pp45rjx3vvp4-8000.app.github.dev/usuarios/monkey", {
+		const response = await fetch(`${API_URL}/usuarios/${USER}`, {
 			method: "POST"
 		})
 		const data = await response.json()
@@ -51,7 +103,7 @@ const Home = () => {
 	}
 
 	const crearPersonaje = async () => {
-		const response = await fetch("https://verbose-computing-machine-g747pp45rjx3vvp4-8000.app.github.dev/usuarios/monkey/personajes", {
+		const response = await fetch(`${API_URL}/usuarios/${USER}/personajes`, {
 			method: "POST",
 			body: JSON.stringify(newPersonaje),
 			headers: {
