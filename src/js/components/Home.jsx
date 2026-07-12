@@ -76,8 +76,8 @@ const Home = () => {
 		
 	}
 
-	const API_URL = "https://super-dollop-4wjwrrjg5qj25qjw-8000.app.github.dev"
-	const USER = "Pepe"
+	const API_URL = "https://cautious-umbrella-vq6q556gww9frv4-8000.app.github.dev"
+	const USER = "mili"
 
 	const getPersonajes = async () => {
 		const response = await fetch(`${API_URL}/usuarios/${USER}/personajes`)
@@ -94,7 +94,7 @@ const Home = () => {
 	}
 
 	const crearUsuario = async () => {
-		const response = await fetch(`${API_URL}/usuarios/${USER}`, {
+		const response = await fetch(`${API_URL}/usuarios/nombre/${USER}`, {
 			method: "POST"
 		})
 		const data = await response.json()
